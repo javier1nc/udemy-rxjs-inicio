@@ -1,35 +1,22 @@
 <script lang='ts'>
 
-import { Observable} from 'rxjs';
+import { Observable, Subscriber} from 'rxjs';
 //import { Observer } from 'svelte-rxjs-observer';
 const observer = {
 	next: x => console.log('Observer got a next value: ' + x),
   error: err => console.error('Observer got an error: ' + err),
   complete: () => console.log('Observer got a complete notification'),
 };
-//const obs$ = Observable.create();
-const obs$ = new Observable<string>( subs => {
-	subs.next('Hola');
-	subs.next('Mundo');
-	
-	subs.next('Hola');
-	subs.next('Mundo');
 
-	subs.complete();
+const intervalo$ = new Observable( Subscriber => {
+	// Crear un contador, 1, 2, 3, 4, 5, ... n
 
-	subs.next('Hola');
-	subs.next('Mundo');
-	
+	setInterval( () => {
+		// cada segunto
+	}, 1000); 
 });
 
-obs$.subscribe(observer);
-
-// obs$.subscribe( 
-// 	valor => console.log('next; ', valor),
-// 	error => console.warn('error, ', error),
-// 	() => console.info('Completado')
-// );
-
+intervalo$.subscribe( num => console.log('Num: ', num) );
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
