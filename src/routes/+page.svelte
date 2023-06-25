@@ -8,15 +8,22 @@ const observer = {
   complete: () => console.log('Observer got a complete notification'),
 };
 
-const intervalo$ = new Observable( Subscriber => {
+const intervalo$ = new Observable<number>( Subscriber => {
 	// Crear un contador, 1, 2, 3, 4, 5, ... n
 
-	setInterval( () => {
+		let count = 0;	
+		const interval = setInterval( () => {
 		// cada segunto
-	}, 1000); 
+
+		count++;
+		Subscriber.next( count );
+		
+	}, 2500); 
 });
 
-intervalo$.subscribe( num => console.log('Num: ', num) );
+const subs = intervalo$.subscribe( num => console.log('Num: ', num) );
+
+
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
